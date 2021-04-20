@@ -23,8 +23,9 @@ out/
 # release/
 
 # Gradle files
-.gradle/
+.gradle
 build/
+.gradle/
 
 # Local configuration file (sdk path, etc)
 local.properties
