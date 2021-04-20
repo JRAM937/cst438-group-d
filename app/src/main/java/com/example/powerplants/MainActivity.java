@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //testing
 
         //onClick to go to user login page
         Button loginButton = (Button) findViewById(R.id.user_login);
