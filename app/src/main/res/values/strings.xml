@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Power Plants</string>
+    <string name="app_name">PowerPlant</string>
     <string name="user_login">User Login</string>
     <string name="administrator_login">Administrator Login</string>
     <string name="create_account">Create Account</string>

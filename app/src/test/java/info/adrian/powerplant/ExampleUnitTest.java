@@ -1,4 +1,4 @@
-package com.example.powerplants;
+package info.adrian.powerplant;
 
 import org.junit.Test;
 
