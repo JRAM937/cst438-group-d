@@ -59,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Set the user's username and password, which can be obtained by a forms
         user.setUsername(username);
         user.setPassword(password);
+        user.put("admin",false);
         user.signUpInBackground(e -> {
             progressDialog.dismiss();
             if (e == null) {
