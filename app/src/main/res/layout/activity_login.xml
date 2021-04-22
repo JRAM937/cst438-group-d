@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:background="@drawable/button_bg"
-        android:text="SIGN UP"
+        android:text="@string/sign_up"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="start"
-        android:text="New here? Sign UP"
+        android:text="@string/or"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         android:layout_height="40dp"
         android:layout_weight="1"
         android:background="@drawable/button_bg"
-        android:text="LOGIN"
+        android:text="@string/login"
         android:layout_marginTop="16dp"
         android:textColor="@color/black"
         android:textSize="12sp"
@@ -54,7 +54,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
         android:baselineAligned="false"
-        android:hint="Password"
+        android:hint="@string/password"
         android:textColorHint="@android:color/darker_gray"
         app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/usernamelayout"
@@ -71,6 +71,30 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_monsteraleafshil" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/usernamelayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:textAppearance="@style/TextAppearance.PowerPlants.Title" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernamelayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,10 +103,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="300dp"
         android:layout_marginRight="32dp"
         android:baselineAligned="false"
-        android:hint="Username"
+        android:hint="@string/username"
         android:textColorHint="@android:color/darker_gray"
         app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
