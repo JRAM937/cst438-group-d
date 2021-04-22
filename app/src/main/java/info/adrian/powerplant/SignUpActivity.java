@@ -90,4 +90,6 @@ public class SignUpActivity extends AppCompatActivity {
         ok.show();
     }
 
+    //code from parse tutorial
+
 }
