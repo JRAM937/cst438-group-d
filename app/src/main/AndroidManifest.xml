@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PowerPlants">
+        <activity android:name=".FeedPageActivity"></activity>
         <activity android:name=".LogoutActivity" />
         <activity android:name=".SignUpActivity" />
 
