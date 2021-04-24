@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent signUpActivity = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(signUpActivity);
             }
         });
     }
