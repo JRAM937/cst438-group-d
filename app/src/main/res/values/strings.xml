@@ -12,4 +12,5 @@
     <string name="login">LOGIN</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="add_post">Add New Post</string>
 </resources>
