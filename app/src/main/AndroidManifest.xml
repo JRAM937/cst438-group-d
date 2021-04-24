@@ -16,6 +16,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PowerPlants">
+
+        <provider
+
+            android:name="androidx.core.content.FileProvider"
+
+            android:authorities="com.codepath.fileprovider"
+
+            android:exported="false"
+
+            android:grantUriPermissions="true">
+
+            <meta-data
+
+                android:name="android.support.FILE_PROVIDER_PATHS"
+
+                android:resource="@xml/fileprovider" />
+
+        </provider>
+
         <activity android:name=".AddPost"></activity>
         <activity android:name=".FeedPageActivity" />
         <activity android:name=".LogoutActivity" />
