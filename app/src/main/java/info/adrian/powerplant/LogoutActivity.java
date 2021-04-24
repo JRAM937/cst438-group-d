@@ -16,6 +16,7 @@ import com.parse.ParseUser;
 
 public class LogoutActivity extends AppCompatActivity {
     Button logout;
+    Button admin;
     private ProgressDialog progressDialog;
 
     @Override
@@ -25,6 +26,12 @@ public class LogoutActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.logout);
         progressDialog = new ProgressDialog(LogoutActivity.this);
+
+        admin = findViewById(R.id.admin);
+        admin.setOnClickListener(v -> {
+            Intent intent = new Intent(LogoutActivity.this, AdminActivity.class);
+            startActivity(intent);
+        });
 
         logout.setOnClickListener(v -> {
             progressDialog.show();
