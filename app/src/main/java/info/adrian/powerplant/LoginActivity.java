@@ -48,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.dismiss();
             if (parseUser != null) {
                 showAlert("Successful Login", "Welcome back " + username + " !");
+                //adrian added, testing purposes
+                Intent postActivity = new Intent(getApplicationContext(), AddPost.class);
+                startActivity(postActivity);
             } else {
                 ParseUser.logOut();
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
