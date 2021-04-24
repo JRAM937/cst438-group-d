@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.ParseUser;
 
-import static android.view.View.INVISIBLE;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -23,9 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText password;
     private Button login;
     private Button signUp;
-    //private ProgressDialog progressDialog;
     private ProgressBar loginProg;
-    //private ProgressBar signupProg;
 
 
     @Override
@@ -33,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginProg = findViewById(R.id.loginProg);
-        //signupProg = findViewById(R.id.signUpProg);
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -49,12 +45,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String username, String password) {
-        login.setVisibility(INVISIBLE);
+        login.setVisibility(View.INVISIBLE);
         loginProg.setVisibility(View.VISIBLE);
         //progressDialog.show();
         ParseUser.logInInBackground(username, password, (parseUser, e) -> {
             //progressDialog.dismiss();
-            loginProg.setVisibility(INVISIBLE);
+            loginProg.setVisibility(View.INVISIBLE);
             login.setVisibility(View.VISIBLE);
             if (parseUser != null) {
                 Intent intent = new Intent(LoginActivity.this, LogoutActivity.class);//change LogoutActivity to FeedActivity
