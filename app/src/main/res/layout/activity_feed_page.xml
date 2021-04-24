@@ -6,14 +6,20 @@
     android:orientation="vertical"
     android:padding="30dip">
 
-    <ImageView
-        android:id="@+id/imageImageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageImageView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
-    <TextView
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="TextView" />-->
+
+    <Button
+        android:id="@+id/add_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/add_post" />
 
 </LinearLayout>
