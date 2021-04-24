@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ public class FeedPageActivity extends AppCompatActivity {
         addPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent postActivity = new Intent(getApplicationContext(), AddPost.class);
+                Intent postActivity = new Intent(getApplicationContext(), AddPostActivity.class);
                 startActivity(postActivity);
             }
         });
