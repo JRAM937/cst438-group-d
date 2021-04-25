@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -51,7 +52,8 @@ public class LoginActivity extends AppCompatActivity {
             loginProg.setVisibility(View.INVISIBLE);
             login.setVisibility(View.VISIBLE);
             if (parseUser != null) {
-                Intent intent = new Intent(LoginActivity.this, LogoutActivity.class);//change LogoutActivity to FeedActivity
+                //for testing adrian's work
+                Intent intent = new Intent(LoginActivity.this, AddPostActivity.class);//change LogoutActivity to FeedActivity
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             } else {
