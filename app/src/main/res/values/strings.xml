@@ -15,4 +15,10 @@
     <string name="add_post">Add New Post</string>
     <string name="takePicture">Take Picture</string>
     <string name="submit">Submit</string>
+
+    <string-array name="users">
+        <item>user1</item>
+        <item>user2</item>
+        <item>user3</item>
+    </string-array>
 </resources>

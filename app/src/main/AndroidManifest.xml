@@ -28,7 +28,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PowerPlants">
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="info.adrian.fileprovider"
@@ -41,6 +40,7 @@
 
         <activity android:name=".AddPostActivity"/>
         <activity android:name=".FeedPageActivity" />
+        <activity android:name=".AdminActivity"></activity>
         <activity android:name=".LogoutActivity" />
         <activity android:name=".SignUpActivity" />
 
