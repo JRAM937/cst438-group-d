@@ -138,7 +138,7 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
 
-
+    //method to save a post
     private void savePost(String description, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setDescription(description);
