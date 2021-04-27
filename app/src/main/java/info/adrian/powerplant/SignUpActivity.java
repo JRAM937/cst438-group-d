@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import com.parse.SignUpCallback;
@@ -60,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setUsername(username);
         user.setPassword(password);
         user.put("admin",false);
+        ParseUser.getQuery();
         user.signUpInBackground(e -> {
             progressDialog.dismiss();
             if (e == null) {
