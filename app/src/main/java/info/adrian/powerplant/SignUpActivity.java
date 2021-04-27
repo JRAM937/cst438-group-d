@@ -63,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.signUpInBackground(e -> {
             progressDialog.dismiss();
             if (e == null) {
-                showAlert("Successful Sign Up ! You logged in...\n", "Welcome " + username + " !");
+                showAlert("Successful Sign Up! You logged in...\n", "Welcome " + username + "!");
             } else {
                 ParseUser.logOut();
                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
