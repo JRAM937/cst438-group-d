@@ -15,12 +15,16 @@ import com.parse.ParseQuery;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
 
-    String users[];
+
+//    String users[];
     RecyclerView recyclerView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +32,11 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         recyclerView = findViewById(R.id.recycler_view_users);
-        users = getResources().getStringArray(R.array.users); //R.array.users is coming from values -> strings.xml
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        List<String> users = getUsers();
+//        users = getResources().getStringArray(R.array.users); //R.array.users is coming from values -> strings.xml
+
+
 //        query.countInBackground(new CountCallback() {
 //            @Override
 //            public void done(int count, ParseException e) {
@@ -40,20 +46,56 @@ public class AdminActivity extends AppCompatActivity {
 //                    Log.d("count", "failed");
 //                }
 //            }
+//        })
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            public void done(List<ParseObject> userList, ParseException e) {
+//                if (e == null) {
+//                    Log.d("TEST", "Retrieved " + userList.get(0).getString("username") + " user");
+//                    for(int i = 0; i < userList.size(); i++){
+//                        Log.d("TEST", "Retrieved " + userList.get(i).getString("username") + " user");
+//                        String username_test = userList.get(i).getString("username");
+//                        user_test.add(username_test);
+//                        Log.d("TEST", "Added succesfully.");
+//                    }
+//                } else {
+//                    Log.d("TEST", "Error: " + e.getMessage());
+//                }
+//                Log.d("TEST", "INSIDE: String users[] size: " + user_test.size() + " users");
+//
+//            }
 //        });
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> userList, ParseException e) {
-                if (e == null) {
-                    Log.d("TEST", "Retrieved " + userList.size() + " users");
-                } else {
-                    Log.d("TEST", "Error: " + e.getMessage());
-                }
-            }
-        });
+        Log.d("TEST", "OUTSIDE: String users[] size: " + users.size() + " users");
 
         AdminRecyclerViewAdapter adapter = new AdminRecyclerViewAdapter(this, users);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    private List<String> getUsers() {
+        List<String> user_test = new ArrayList<String>();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> userList, ParseException e) {
+                if (e == null) {
+                    Log.d("TEST", "Retrieved " + userList.get(0).getString("username") + " user");
+                    for(int i = 0; i < userList.size(); i++){
+                        Log.d("TEST", "Retrieved " + userList.get(i).getString("username") + " user");
+                        String username_test = userList.get(i).getString("username");
+                        user_test.add(username_test);
+                        Log.d("TEST", "Added succesfully.");
+                    }
+                } else {
+                    Log.d("TEST", "Error: " + e.getMessage());
+                }
+                Log.d("TEST", "INSIDE: String users[] size: " + user_test.size() + " users");
+
+            }
+        });
+
+
+        return user_test;
     }
 }
