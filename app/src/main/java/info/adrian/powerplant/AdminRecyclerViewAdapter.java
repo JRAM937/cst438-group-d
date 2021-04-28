@@ -14,13 +14,17 @@ import java.util.List;
 
 public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecyclerViewAdapter.MyViewHolder> {
 
-//    String user_data[];
-    List<String> user_data = new ArrayList<String>();
+    List<String> user_data = new ArrayList<String>(); //this is to bring in the list that is in AdminActivity
     Context context;
 
     public AdminRecyclerViewAdapter (Context ct, List<String> users){
         context = ct;
         user_data = users;
+    }
+
+    public void addUser(String username){ //stupid piece of code that fixed the issue i was having for three days.
+        user_data.add(username); //adds the username to the list
+        notifyDataSetChanged(); //allows the data to be saved.
     }
 
     @NonNull
