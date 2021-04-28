@@ -13,17 +13,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
+import java.util.Objects;
+
 public class UserEditAccountActivity extends AppCompatActivity {
     private TextInputEditText new_username;
     private TextInputEditText new_password;
     private Button changeUserButton;
     private Button changePassButton;
-    private boolean success = false;
+    private boolean success = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,55 +53,80 @@ public class UserEditAccountActivity extends AppCompatActivity {
 
     private void changeUsername(String username) {
         ParseUser user = ParseUser.getCurrentUser();
-        //Change Username
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        //Run some checks to see if username is valid before making a query
+
+        //Case 1: New username is blank
+
+        if(username.equals("")){
+            Toast.makeText(this, "New Username Cannot Be Blank", Toast.LENGTH_SHORT).show();
+            success = false;
+            //test boolean value
+            Log.d("Test", "Value: " + success);
+        }
+
+        //Case 2: Username already exists
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> users, ParseException e) {
+                for(int i = 0; i < users.size(); i++){
+                    if(users.get(i).getString("username").equals(username)){
+                        success = false;
+                        //test boolean value
+                        Log.d("Test", "Value: " + success);
+                        break;
+                    }
+                }
+            }
+        });
+
+        //Set the username if the above cases pass
+        if(success) {
             query.getInBackground(user.getObjectId(), new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject user, ParseException e) {
                     if (e == null) {
                         user.put("username", username);
                         user.saveInBackground();
-                        success = true;
-                        //test boolean value
-                        Log.d("Test", "Value: " + success);
-                    } else {
-                        //test boolean value
-                        Log.d("Test", "Value: " + success);
                     }
                 }
             });
-
-        if(success) {
-            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Change Successful!", Toast.LENGTH_SHORT).show();
         } else{
-            Toast.makeText(this, "Change failed. Please try again later.", Toast.LENGTH_SHORT).show();
+            //I couldn't put this failure toast inside the query so here it is instead
+            Toast.makeText(this, "New Username Must Be Different From Current Username.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void changePassword(String password) {
         ParseUser user = ParseUser.getCurrentUser();
-        //Change Password
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.getInBackground(user.getObjectId(), new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject user, ParseException e) {
-                if (e == null) {
-                    user.put("password", password);
-                    user.saveInBackground();
-                    success = true;
-                    //test boolean value
-                    Log.d("Test", "Value: " + success);
-                } else {
-                    //test boolean value
-                    Log.d("Test", "Value: " + success);
-                }
-            }
-        });
+        //Run some checks to see if password is valid before making a query
+        //Note: Parse won't let me get the password, so all I can do si check if it is empty
 
+        //Case 1: New password is blank
+        if(password.equals("")){
+            Toast.makeText(this, "New Password Cannot Be Blank", Toast.LENGTH_SHORT).show();
+            success = false;
+            //test boolean value
+            Log.d("Test", "Value: " + success);
+        }
+
+        //Change Password if the above checks pass
         if(success) {
-            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "Change failed. Please try again later.", Toast.LENGTH_SHORT).show();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+            query.getInBackground(user.getObjectId(), new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject user, ParseException e) {
+                    if (e == null) {
+                        user.put("password", password);
+                        user.saveInBackground();
+                        success = true;
+                        //test boolean value
+                        Log.d("Test", "Value: " + success);
+                    }
+                }
+            });
+            Toast.makeText(this, "Change Successful!", Toast.LENGTH_SHORT).show();
         }
     }
 
