@@ -9,14 +9,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecyclerViewAdapter.MyViewHolder> {
 
-    String data[];
+    List<String> user_data = new ArrayList<String>(); //this is to bring in the list that is in AdminActivity
     Context context;
 
-    public AdminRecyclerViewAdapter (Context ct, String user[]){
+    public AdminRecyclerViewAdapter (Context ct, List<String> users){
         context = ct;
-        data = user;
+        user_data = users;
+    }
+
+    public void addUser(String username){ //stupid piece of code that fixed the issue i was having for three days.
+        user_data.add(username); //adds the username to the list
+        notifyDataSetChanged(); //allows the data to be saved.
     }
 
     @NonNull
@@ -29,12 +37,12 @@ public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecycler
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.users_username.setText(data[position]);
+        holder.users_username.setText(user_data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return user_data.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
