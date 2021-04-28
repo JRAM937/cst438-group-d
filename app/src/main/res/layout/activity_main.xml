@@ -7,21 +7,33 @@
     android:padding="30dip">
 
     <Button
-        android:id="@+id/user_login"
+        android:id="@+id/admin_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/user_login" />
+        android:text="ADMIN" />
 
     <Button
-        android:id="@+id/administrator_login"
+        android:id="@+id/feed_page_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/administrator_login" />
+        android:text="FEED PAGE" />
 
     <Button
-        android:id="@+id/create_account"
+        android:id="@+id/edit_account_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_account" />
+        android:text="EDIT ACCOUNT" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT" />
+
+    <Button
+        android:id="@+id/add_post_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD POST" />
 
 </LinearLayout>

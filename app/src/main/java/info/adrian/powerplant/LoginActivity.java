@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             login.setVisibility(View.VISIBLE);
             if (parseUser != null) {
                 //for testing adrian's work
-                Intent intent = new Intent(LoginActivity.this, FeedPageActivity.class);//change LogoutActivity to FeedActivity
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);//change LogoutActivity to FeedActivity
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             } else {
