@@ -6,18 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FEED PAGE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
@@ -26,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:backgroundTint="#90EE90"
-            app:fabAlignmentMode="center"
-            />
+            app:fabAlignmentMode="center" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,6 +33,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_add_24"
             app:layout_anchor="@id/bottom_app_bar" />
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
