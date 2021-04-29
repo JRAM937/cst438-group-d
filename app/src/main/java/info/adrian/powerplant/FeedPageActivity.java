@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +28,9 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static info.adrian.powerplant.R.id.app_bar_home;
+import static info.adrian.powerplant.R.id.app_bar_search;
 
 public class FeedPageActivity extends AppCompatActivity {
 
@@ -91,6 +95,24 @@ public class FeedPageActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case app_bar_home:
+                Intent editAccountActivity = new Intent(getApplicationContext(), UserEditAccountActivity.class);
+                startActivity(editAccountActivity);
+                return true;
+
+//            case app_bar_search:
+//                Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
+//                startActivity(searchActivity);
+//                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
