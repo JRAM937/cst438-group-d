@@ -52,7 +52,8 @@ public class LoginActivity extends AppCompatActivity {
             loginProg.setVisibility(View.INVISIBLE);
             login.setVisibility(View.VISIBLE);
             if (parseUser != null) {
-                Intent intent = new Intent(LoginActivity.this, LogoutActivity.class);//change LogoutActivity to FeedActivity
+                //for testing adrian's work
+                Intent intent = new Intent(LoginActivity.this, FeedPageActivity.class);//change LogoutActivity to FeedActivity
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             } else {
