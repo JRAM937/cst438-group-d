@@ -28,6 +28,8 @@ public class UserEditAccountActivity extends AppCompatActivity {
     private TextInputEditText new_password;
     private Button changeUserButton;
     private Button changePassButton;
+    private Button adminButton;
+    private Button deleteButton;
     private boolean success = true;
 
     @Override
@@ -35,10 +37,15 @@ public class UserEditAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit_account);
 
-        changePassButton = findViewById(R.id.change_pass);
-        changeUserButton = findViewById(R.id.change_user);
-        new_password = findViewById(R.id.password);
         new_username = findViewById(R.id.username);
+        changeUserButton = findViewById(R.id.change_user);
+
+        new_password = findViewById(R.id.password);
+        changePassButton = findViewById(R.id.change_pass);
+
+        adminButton = findViewById(R.id.admin);
+
+        deleteButton = findViewById(R.id.delete);
 
         changePassButton.setOnClickListener(v -> {
             changePassword(new_password.getText().toString());
@@ -48,6 +55,13 @@ public class UserEditAccountActivity extends AppCompatActivity {
         changeUserButton.setOnClickListener(v -> {
             changeUsername(new_username.getText().toString());
             success = false;
+        });
+
+        //check if parse user object contains admin=true
+        adminButton.setVisibility(View.VISIBLE);
+        adminButton.setOnClickListener(view -> {
+            Intent intent = new Intent(UserEditAccountActivity.this, AdminActivity.class);
+            startActivity(intent);
         });
     }
 
