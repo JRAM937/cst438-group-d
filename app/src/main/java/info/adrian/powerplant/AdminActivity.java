@@ -53,12 +53,12 @@ public class AdminActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //TO DO: need to make it so that the view button redirects to edit user account.
+
         Button view = findViewById(R.id.users_view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent loginActivity = new Intent(getApplicationContext(), UserEditAccountActivity.class);
-                startActivity(loginActivity);
             }
         });
 
