@@ -55,12 +55,12 @@ public class AdminActivity extends AppCompatActivity {
 
         //TO DO: need to make it so that the view button redirects to edit user account.
 
-        Button view = findViewById(R.id.users_view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+//        Button view = findViewById(R.id.users_view);
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
 
     }
 }
