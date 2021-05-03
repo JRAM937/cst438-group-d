@@ -91,7 +91,9 @@ public class FeedPageActivity extends AppCompatActivity {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
                 }
 
-                allPosts.addAll(posts);
+                for(int i = posts.size() - 1; i >= 0; i--){ //will add the posts in reverse order which is New first, old bottom.
+                    allPosts.add(posts.get(i));
+                }
                 adapter.notifyDataSetChanged();
             }
         });

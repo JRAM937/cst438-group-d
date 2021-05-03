@@ -47,7 +47,7 @@ public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecycler
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
         TextView users_username;
-
+        
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             users_username = itemView.findViewById(R.id.users_username);
