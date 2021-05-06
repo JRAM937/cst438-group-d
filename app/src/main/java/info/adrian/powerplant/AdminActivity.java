@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.parse.CountCallback;
@@ -34,6 +35,19 @@ public class AdminActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_users);
         AdminRecyclerViewAdapter adapter = new AdminRecyclerViewAdapter(this, users);
 
+        //TO DO: need to make it so that the view button redirects to edit user account.
+
+//        Button view = (Button) findViewById(R.id.users_view); //users_view is not part of the activity_admin layout file which is why it is crashing and returning null.
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), AdminEditUserActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User"); //will tap into database
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> userList, ParseException e) {
@@ -52,15 +66,6 @@ public class AdminActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //TO DO: need to make it so that the view button redirects to edit user account.
-
-//        Button view = findViewById(R.id.users_view);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
 
     }
 }
