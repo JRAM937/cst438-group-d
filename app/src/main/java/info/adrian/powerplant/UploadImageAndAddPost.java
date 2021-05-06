@@ -37,13 +37,14 @@ public class UploadImageAndAddPost extends AppCompatActivity {
 
     public static final String TAG = "AddPostActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    public static final int IMAGE_PICK_CODE = 1000;
+    public static final int PICK_IMAGE= 1000;
     public static final int PERMISSION_CODE = 1001;
 
     private EditText etDescription;
     private ImageView postImage;
     private Button submitButton;
     private Button uploadImageButton;
+    Uri imageUri;
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
@@ -97,10 +98,9 @@ public class UploadImageAndAddPost extends AppCompatActivity {
     }
 
     private void pickImageFromGallery() {
-        //intent to pick image
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, IMAGE_PICK_CODE);
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+        photoFile = getPhotoFileUri(photoFileName);
     }
 
 
@@ -119,27 +119,13 @@ public class UploadImageAndAddPost extends AppCompatActivity {
         }
     }
 
-//    // Returns the File for a photo stored on disk given the fileName
-//    public File getPhotoFileUri(String fileName) {
-//        // Get safe storage directory for photos
-//        // Use `getExternalFilesDir` on Context to access package-specific directories.
-//        // This way, we don't need to request external read/write runtime permissions.
-//        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-//
-//        // Create the storage directory if it does not exist
-//        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-//            Log.d(TAG, "failed to create directory");
-//        }
-//
-//        // Return the file target for the photo based on filename
-//        return new File(mediaStorageDir.getPath() + File.separator + fileName);
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            postImage.setImageURI(data.getData());
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            imageUri = data.getData();
+            postImage.setImageURI(imageUri);
         }
     }
 
@@ -162,5 +148,20 @@ public class UploadImageAndAddPost extends AppCompatActivity {
                 postImage.setImageResource(0);
             }
         });
+    }
+
+    public File getPhotoFileUri(String fileName) {
+        // Get safe storage directory for photos
+        // Use `getExternalFilesDir` on Context to access package-specific directories.
+        // This way, we don't need to request external read/write runtime permissions.
+        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d(TAG, "failed to create directory");
+        }
+
+        // Return the file target for the photo based on filename
+        return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 }
