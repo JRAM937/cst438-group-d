@@ -33,38 +33,30 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
-public class AddPostActivity extends AppCompatActivity {
+public class UploadImageAndAddPost extends AppCompatActivity {
 
     public static final String TAG = "AddPostActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    public static final int IMAGE_PICK_CODE = 1000;
+    public static final int PICK_IMAGE= 1000;
     public static final int PERMISSION_CODE = 1001;
 
     private EditText etDescription;
-    private Button captureImageButton;
     private ImageView postImage;
     private Button submitButton;
     private Button uploadImageButton;
+    Uri imageUri;
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_post);
+        setContentView(R.layout.activity_upload_image_and_add_post);
 
         etDescription = findViewById(R.id.description);
-        captureImageButton = findViewById(R.id.buttonCaptureImage);
         postImage = findViewById(R.id.ivPostImage);
         submitButton = findViewById(R.id.submitButton);
         uploadImageButton = findViewById(R.id.uploadImageButton);
-
-        captureImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchCamera();
-            }
-        });
 
 
         //handles the submit button
@@ -89,70 +81,51 @@ public class AddPostActivity extends AppCompatActivity {
         uploadImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), UploadImageAndAddPost.class);
-                startActivity(newIntent);
+                //check permission
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                        String [] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_CODE);
+                    } else{
+                        pickImageFromGallery();
+                    }
+                } else{
+                    pickImageFromGallery();
+                }
             }
         });
 
     }
 
-    //launches the phone camera
-    private void launchCamera() {
-        Log.i("Camera","lauchCamera() entered");
-        // create Intent to take a picture and return control to the calling application
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Log.i("Camera","85");
-        // Create a File reference for future access
+    private void pickImageFromGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
         photoFile = getPhotoFileUri(photoFileName);
-        Log.i("Camera","88");
+    }
 
-        // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(AddPostActivity.this, "info.adrian.fileprovider", photoFile);
-        Log.i("Camera","94");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-        Log.i("Camera","96");
 
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Start the image capture intent to take photo
-            Log.i("Camera","intent.resolveActivity(getPackageManager())");
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    //handle runtime permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PERMISSION_CODE:{
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    pickImageFromGallery();
+                } else{
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
-    // Returns the File for a photo stored on disk given the fileName
-    public File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(TAG, "failed to create directory");
-        }
-
-        // Return the file target for the photo based on filename
-        return new File(mediaStorageDir.getPath() + File.separator + fileName);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // by this point we have the camera photo on disk
-                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // RESIZE BITMAP, see section below
-                // Load the taken image into a preview
-                postImage.setImageBitmap(takenImage);
-            } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-            }
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            imageUri = data.getData();
+            postImage.setImageURI(imageUri);
         }
     }
 
@@ -175,5 +148,20 @@ public class AddPostActivity extends AppCompatActivity {
                 postImage.setImageResource(0);
             }
         });
+    }
+
+    public File getPhotoFileUri(String fileName) {
+        // Get safe storage directory for photos
+        // Use `getExternalFilesDir` on Context to access package-specific directories.
+        // This way, we don't need to request external read/write runtime permissions.
+        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d(TAG, "failed to create directory");
+        }
+
+        // Return the file target for the photo based on filename
+        return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 }
