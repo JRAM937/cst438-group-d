@@ -26,10 +26,6 @@ import java.util.Objects;
 public class UserEditAccountActivity extends AppCompatActivity {
     private TextInputEditText new_username;
     private TextInputEditText new_password;
-    private Button changeUserButton;
-    private Button changePassButton;
-    private Button adminButton;
-    private Button deleteButton;
     private boolean success = true;
 
     @Override
@@ -37,15 +33,11 @@ public class UserEditAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit_account);
 
-        new_username = findViewById(R.id.username);
-        changeUserButton = findViewById(R.id.change_user);
-
+        Button changePassButton = findViewById(R.id.change_pass);
+        Button changeUserButton = findViewById(R.id.change_user);
+        Button deleteAccButton = findViewById(R.id.delete);
         new_password = findViewById(R.id.password);
-        changePassButton = findViewById(R.id.change_pass);
-
-        adminButton = findViewById(R.id.admin);
-
-        deleteButton = findViewById(R.id.delete);
+        new_username = findViewById(R.id.username);
 
         changePassButton.setOnClickListener(v -> {
             changePassword(new_password.getText().toString());
@@ -57,11 +49,8 @@ public class UserEditAccountActivity extends AppCompatActivity {
             success = false;
         });
 
-        //check if parse user object contains admin=true
-        adminButton.setVisibility(View.VISIBLE);
-        adminButton.setOnClickListener(view -> {
-            Intent intent = new Intent(UserEditAccountActivity.this, AdminActivity.class);
-            startActivity(intent);
+        deleteAccButton.setOnClickListener(v -> {
+            deleteAcc();
         });
     }
 
@@ -144,6 +133,12 @@ public class UserEditAccountActivity extends AppCompatActivity {
         }
     }
 
+    private void deleteAcc(){
+        ParseUser user = ParseUser.getCurrentUser();
+        user.deleteInBackground();
+        showAlert("Account has been deleted", "Thanks for using Power Plants!");
+    }
+
     private void showAlert(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(UserEditAccountActivity.this)
                 .setTitle(title)
@@ -153,7 +148,7 @@ public class UserEditAccountActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         // don't forget to change the line below with the names of your Activities
-                        Intent intent = new Intent(UserEditAccountActivity.this, LogoutActivity.class);
+                        Intent intent = new Intent(UserEditAccountActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
