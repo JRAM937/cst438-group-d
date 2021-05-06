@@ -1,14 +1,18 @@
 package info.adrian.powerplant;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -33,10 +37,14 @@ public class AddPostActivity extends AppCompatActivity {
 
     public static final String TAG = "AddPostActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    public static final int IMAGE_PICK_CODE = 1000;
+    public static final int PERMISSION_CODE = 1001;
+
     private EditText etDescription;
     private Button captureImageButton;
     private ImageView postImage;
     private Button submitButton;
+    private Button uploadImageButton;
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
@@ -49,6 +57,7 @@ public class AddPostActivity extends AppCompatActivity {
         captureImageButton = findViewById(R.id.buttonCaptureImage);
         postImage = findViewById(R.id.ivPostImage);
         submitButton = findViewById(R.id.submitButton);
+        uploadImageButton = findViewById(R.id.uploadImageButton);
 
         captureImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +66,8 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
-        //queryPosts();
 
+        //handles the submit button
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +86,50 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
+        uploadImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //check permission
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                        String [] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_CODE);
+                    } else{
+                        pickImageFromGallery();
+                    }
+                } else{
+                    pickImageFromGallery();
+                }
+            }
+        });
+
     }
 
+    private void pickImageFromGallery() {
+        //intent to pick image
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+    }
+
+    //handle picked image result
+
+
+        //handle runtime permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PERMISSION_CODE:{
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    pickImageFromGallery();
+                } else{
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    //launches the phone camera
     private void launchCamera() {
         Log.i("Camera","lauchCamer() entered");
         // create Intent to take a picture and return control to the calling application
