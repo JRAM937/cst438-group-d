@@ -36,6 +36,7 @@ public class UserEditAccountActivity extends AppCompatActivity {
         Button changePassButton = findViewById(R.id.change_pass);
         Button changeUserButton = findViewById(R.id.change_user);
         Button deleteAccButton = findViewById(R.id.delete);
+        Button admin = findViewById(R.id.admin);
         new_password = findViewById(R.id.password);
         new_username = findViewById(R.id.username);
 
@@ -52,6 +53,14 @@ public class UserEditAccountActivity extends AppCompatActivity {
         deleteAccButton.setOnClickListener(v -> {
             deleteAcc();
         });
+        ParseUser user = ParseUser.getCurrentUser();
+        if(user.getBoolean("admin")){
+            admin.setVisibility(View.VISIBLE);
+            admin.setOnClickListener(view -> {
+                Intent intent = new Intent(UserEditAccountActivity.this, AdminActivity.class);
+                startActivity(intent);
+            });
+        }
     }
 
     private void changeUsername(String username) {
