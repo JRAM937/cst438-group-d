@@ -148,6 +148,8 @@ public class UploadImageAndAddPost extends AppCompatActivity {
                 postImage.setImageResource(0);
             }
         });
+        Intent i = new Intent(getApplicationContext(), FeedPageActivity.class);
+        startActivity(i);
     }
 
     public File getPhotoFileUri(String fileName) {
