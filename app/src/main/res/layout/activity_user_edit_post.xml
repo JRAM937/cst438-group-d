@@ -1,59 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="30dip">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/edit_post"
+        android:textAppearance="@style/TextAppearance.PowerPlants.Title"
+        app:layout_constraintBottom_toTopOf="@+id/usernamelayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <EditText
+        android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/description"
+        tools:ignore="Autofill,TextFields" />
 
-        <TextView
-            android:id="@+id/post_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="title of post"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="36sp" />
+    <Button
+        android:id="@+id/buttonCaptureImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/takePicture" />
+    <Button
+        android:id="@+id/uploadImageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/uploadImage" />
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:srcCompat="@tools:sample/avatars"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_changes" />
 
-        <EditText
-            android:id="@+id/post_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Describe your post"
-            android:inputType="textMultiLine" />
-
-        <CheckBox
-            android:id="@+id/for_sale_option"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="This item is for sale" />
-
-        <EditText
-            android:id="@+id/post_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Price of Item"
-            android:inputType="numberSigned" />
-
-        <Button
-            android:id="@+id/save_changes_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Changes" />
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
