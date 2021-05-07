@@ -31,7 +31,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PowerPlants"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".AdminEditUserActivity"></activity>
+
         <activity android:name=".UploadImageAndAddPost"></activity>
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AdminActivity">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_users"
         android:layout_width="332dp"
@@ -26,6 +25,7 @@
         android:text="Admin"
         android:textSize="32dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view_users"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
