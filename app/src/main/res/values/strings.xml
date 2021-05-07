@@ -15,6 +15,11 @@
     <string name="add_post">Add New Post</string>
     <string name="takePicture">Take Picture</string>
     <string name="submit">Submit</string>
+    <string name="uploadImage">Upload Image</string>
+    <string name="description">Description...</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="todo">TODO</string>
+    <string name="edit_post">Edit Post</string>
 
     <string-array name="users">
         <item>user1</item>

@@ -14,11 +14,6 @@
         android:hint="Description..."/>
 
     <Button
-        android:id="@+id/buttonCaptureImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/takePicture" />
-    <Button
         android:id="@+id/uploadImageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
