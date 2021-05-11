@@ -20,6 +20,7 @@
     <string name="save_changes">Save Changes</string>
     <string name="todo">TODO</string>
     <string name="edit_post">Edit Post</string>
+    <string name="search_button">Search</string>
 
     <string-array name="users">
         <item>user1</item>
