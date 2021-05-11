@@ -103,8 +103,8 @@ public class FeedPageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case app_bar_home:
-                Intent editAccountActivity = new Intent(getApplicationContext(), UserEditAccountActivity.class);
-                startActivity(editAccountActivity);
+                Intent userProfileActivity = new Intent(getApplicationContext(), UserProfileActivity.class);
+                startActivity(userProfileActivity);
                 return true;
 
 //            case app_bar_search:
