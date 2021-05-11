@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -27,7 +28,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private UserPostsAdapter adapter;
     private List<Post> usersPosts;
+    private TextView userName;
     private Button editUser;
+    private String mUsername;
 
 
     @Override
@@ -35,8 +38,14 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        queryUsersPosts();
+
         userPosts = findViewById(R.id.userPosts);
         editUser = findViewById(R.id.editUserButton);
+
+        userName = findViewById(R.id.userProfileUsername);
+        userName.setText(ParseUser.getCurrentUser().getUsername());
+
         editUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,11 +62,12 @@ public class UserProfileActivity extends AppCompatActivity {
         userPosts.setAdapter(adapter);
 
 
-        queryUsersPosts();
+
     }
 
     private void queryUsersPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         query.addDescendingOrder(Post.KEY_CREATED_AT);
