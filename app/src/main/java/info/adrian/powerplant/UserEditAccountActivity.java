@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,12 +20,12 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
-import java.util.Objects;
 
 public class UserEditAccountActivity extends AppCompatActivity {
     private TextInputEditText new_username;
     private TextInputEditText new_password;
     private boolean success = true;
+    public static final String TAG = "EditAccountActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +143,32 @@ public class UserEditAccountActivity extends AppCompatActivity {
 
     private void deleteAcc(){
         ParseUser user = ParseUser.getCurrentUser();
+
+        //look for posts that belong to the current user and delete them
+            ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
+            query.include(Post.KEY_USER);
+            query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+            query.addDescendingOrder(Post.KEY_CREATED_AT);
+            query.findInBackground(new FindCallback<Post>() {
+                @Override
+                public void done(List<Post> posts, ParseException e) {
+                    if(e != null){
+                        Log.e(TAG, "Issue with getting posts", e);
+                        return;
+                    }
+                    for(Post post : posts){
+                        Log.i(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
+                    }
+
+                    for(int i = posts.size() - 1; i >= 0; i--){
+                        posts.get(i).deleteInBackground();
+                        Log.d("Post Deleted", "title: " + posts.get(i).getDescription());
+                    }
+                }
+            });
+
+        //Delete the user from the database
         user.deleteInBackground();
         showAlert("Account has been deleted", "Thanks for using Power Plants!");
     }
