@@ -14,8 +14,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="-25dp"
+        tools:layout_editor_absoluteY="76dp">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_add_24"
             app:layout_anchor="@id/bottom_app_bar" />
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
