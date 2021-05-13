@@ -56,21 +56,23 @@ public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecycler
     public class MyViewHolder extends RecyclerView.ViewHolder  {
         TextView users_username;
         Button users_view;
+        String username_to_change;
         
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             users_username = itemView.findViewById(R.id.users_username);
             users_view = itemView.findViewById(R.id.users_view);
 
+
             Log.d("IN ADAPTER", "User is " + users_username.getText().toString());
 
-            b.putString("user", users_username.getText().toString());
+//            b.putString("user", users_username.getText().toString());
 
             users_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context.getApplicationContext(), AdminEditUserActivity.class);
-                    intent.putExtras(b);
+                    intent.putExtra("user", users_username.getText().toString());
                     context.startActivity(intent);
                 }
             });
