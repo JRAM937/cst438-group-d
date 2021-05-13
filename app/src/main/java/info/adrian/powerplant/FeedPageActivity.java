@@ -107,10 +107,10 @@ public class FeedPageActivity extends AppCompatActivity {
                 startActivity(userProfileActivity);
                 return true;
 
-//            case app_bar_search:
-//                Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
-//                startActivity(searchActivity);
-//                return true;
+            case app_bar_search:
+                Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(searchActivity);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
