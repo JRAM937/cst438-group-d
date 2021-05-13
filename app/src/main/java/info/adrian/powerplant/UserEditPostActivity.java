@@ -64,6 +64,8 @@ public class UserEditPostActivity extends AppCompatActivity {
         Button uploadImageButton = findViewById(R.id.uploadImageButton);
         postID = getIntent().getExtras().getString("id");
 
+        Button deleteButton = findViewById(R.id.delete_button);
+
         captureImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +97,15 @@ public class UserEditPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(getApplicationContext(), UploadImageAndAddPost.class);
+                startActivity(newIntent);
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePost();
+                Intent newIntent = new Intent(getApplicationContext(), FeedPageActivity.class);
                 startActivity(newIntent);
             }
         });
@@ -209,5 +220,35 @@ public class UserEditPostActivity extends AppCompatActivity {
             });
             Intent i = new Intent(getApplicationContext(), FeedPageActivity.class);
             startActivity(i);
+    }
+
+    private void deletePost(){
+        ParseUser user = ParseUser.getCurrentUser();
+
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
+        query.include(Post.KEY_USER);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+                for(Post post : posts){
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
+                }
+                Log.d("In userEditActivity:", "post id is "  + postID);
+                for(int i = posts.size() - 1; i >= 0; i--){
+                    Log.d("Current iteration: ", posts.get(i).getObjectId());
+                    if(postID.equals(posts.get(i).getObjectId())) {
+                        posts.get(i).deleteInBackground();
+                        Log.d("Post Deleted", "title: " + posts.get(i).getDescription());
+                    }
+                }
+            }
+        });
     }
 }
