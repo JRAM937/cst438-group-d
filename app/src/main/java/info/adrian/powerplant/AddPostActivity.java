@@ -48,8 +48,6 @@ public class AddPostActivity extends AppCompatActivity {
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
-    //This variable is used to test UserEditPostActivity
-    private String postID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +85,8 @@ public class AddPostActivity extends AppCompatActivity {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
 
-                //CAUTION: The following intent is used to test UserEditPost!
-                Intent i = new Intent(getApplicationContext(), UserEditPostActivity.class);
-                i.putExtra("id", postID);
+                Intent i = new Intent(getApplicationContext(), FeedPageActivity.class);
                 startActivity(i);
-
             }
         });
 
@@ -180,12 +175,11 @@ public class AddPostActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
                 Log.i(TAG, "Post save was successful!!!");
-                postID = post.getObjectId();
+
                 etDescription.setText("");
                 postImage.setImageResource(0);
+
             }
         });
-        Intent i = new Intent(getApplicationContext(), FeedPageActivity.class);
-        startActivity(i);
     }
 }
