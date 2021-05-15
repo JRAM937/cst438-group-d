@@ -64,7 +64,7 @@ public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecycler
             users_view = itemView.findViewById(R.id.users_view);
 
 
-            Log.d("IN ADAPTER", "User is " + users_username.getText().toString());
+//            Log.d("IN ADAPTER", "User is " + users_username.getText().toString());
 
 //            b.putString("user", users_username.getText().toString());
 
