@@ -20,49 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/usernamelayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="64dp"
-        android:baselineAligned="false"
-        android:hint="@string/username"
-        android:textColorHint="@android:color/darker_gray"
-        app:boxStrokeColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <Button
-        android:id="@+id/change_user"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="116dp"
-        android:layout_weight="1"
-        android:background="@drawable/button_bg_blue"
-        android:text="Change Username"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernamelayout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordLayout"
+        android:id="@+id/password_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -75,14 +33,13 @@
         app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_user"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,25 +48,24 @@
         android:id="@+id/change_pass"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:layout_weight="1"
         android:background="@drawable/button_bg_blue"
         android:text="Change Password"
         android:textColor="@color/black"
         android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/delete_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/password_layout"
+        app:layout_constraintVertical_bias="0.059" />
 
     <Button
-        android:id="@+id/delete"
+        android:id="@+id/delete_account"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginTop="124dp"
         android:layout_weight="1"
         android:background="@drawable/button_bg_blue"
         android:text="Delete Account"
@@ -118,7 +74,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/password_layout"
+        app:layout_constraintVertical_bias="0.061" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

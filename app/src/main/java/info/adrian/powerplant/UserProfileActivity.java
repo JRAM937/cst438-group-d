@@ -1,10 +1,13 @@
 package info.adrian.powerplant;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +33,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private List<Post> usersPosts;
     private TextView userName;
     private Button editUser;
+    private Button logout_button;
     private String mUsername;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -40,8 +45,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
         queryUsersPosts();
 
+        progressDialog = new ProgressDialog(UserProfileActivity.this);
         userPosts = findViewById(R.id.userPosts);
         editUser = findViewById(R.id.editUserButton);
+        logout_button = findViewById(R.id.logout_button);
 
         userName = findViewById(R.id.userProfileUsername);
         userName.setText(ParseUser.getCurrentUser().getUsername());
@@ -51,6 +58,20 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent editAccountActivity = new Intent(getApplicationContext(), UserEditAccountActivity.class);
                 startActivity(editAccountActivity);
+            }
+        });
+
+        logout_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.show();
+                // logging out of Parse
+                ParseUser.logOutInBackground(e -> {
+                    progressDialog.dismiss();
+                    if (e == null)
+                        showAlert("You have Successfully Logged out.", "Bye-bye then");
+
+                });
             }
         });
 
@@ -88,5 +109,23 @@ public class UserProfileActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void showAlert(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        // don't forget to change the line below with the names of your Activities
+                        Intent intent = new Intent(UserProfileActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog ok = builder.create();
+        ok.show();
     }
 }
