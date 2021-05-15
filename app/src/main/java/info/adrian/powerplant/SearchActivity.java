@@ -49,8 +49,8 @@ public class SearchActivity extends AppCompatActivity {
         username = findViewById(R.id.userName);
         rvPosts = findViewById(R.id.rvPosts);
 
-        mBottomAppBar = findViewById(R.id.bottom_app_bar);
-        setSupportActionBar(mBottomAppBar);
+//        mBottomAppBar = findViewById(R.id.bottom_app_bar);
+//        setSupportActionBar(mBottomAppBar);
 
         searchUserName = username.getText().toString();
         Log.i(TAG, "name: " + searchUserName);
