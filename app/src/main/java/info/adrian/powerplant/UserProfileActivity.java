@@ -34,6 +34,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView userName;
     private Button editUser;
     private Button logout_button;
+    private Button edit_post_button;
     private String mUsername;
     private ProgressDialog progressDialog;
 
@@ -49,6 +50,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userPosts = findViewById(R.id.userPosts);
         editUser = findViewById(R.id.editUserButton);
         logout_button = findViewById(R.id.logout_button);
+        edit_post_button = findViewById(R.id.edit_post_button);
 
         userName = findViewById(R.id.userProfileUsername);
         userName.setText(ParseUser.getCurrentUser().getUsername());
@@ -72,6 +74,32 @@ public class UserProfileActivity extends AppCompatActivity {
                         showAlert("You have Successfully Logged out.", "Bye-bye then");
 
                 });
+            }
+        });
+
+        edit_post_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
+                query.include(Post.KEY_USER);
+                query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+                query.addDescendingOrder(Post.KEY_CREATED_AT);
+                query.findInBackground(new FindCallback<Post>() {
+                    @Override
+                    public void done(List<Post> posts, ParseException e) {
+                        if(e != null){
+                            Log.e(TAG, "Issue with getting posts", e);
+                            return;
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), UserEditPostActivity.class);
+                        intent.putExtra("id", posts.get(0).getObjectId());
+                        startActivity(intent);
+                    }
+                });
+
             }
         });
 
